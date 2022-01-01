@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <!--应用名称-->
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+    <springProperty scope="context" name="ip" source="spring.cloud.client.ipAddress"/>
+    <springProperty scope="context" name="active" source="spring.profiles.active"/>
+    <springProperty scope="context" name="logLevel" source="log.level"/>
+    <springProperty scope="context" name="delay" source="server.graceful.shutdown.timeout"/>
+
+    <!--日志文件保存路径-->
+    <property name="LOG_FILE_PATH" value="/tmp/logs"/>
+    <!--为了防止进程退出时，内存中的数据丢失，请加上此选项-->
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook">
+        <delay>
+            30000
+        </delay>
+    </shutdownHook>
+
+    <!-- 控制台日志 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d %thread %logger{40} %message %exception{10} %n </pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+
+    <!-- 可用来获取StatusManager中的状态  -->
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+    <!-- 解决debug模式下循环发送的问题 -->
+    <logger name="org.apache.http.impl.conn.Wire" level="WARN"/>
+
+    <logger name="com.netflix.discovery.shared.resolver.aws" level="OFF"/>
+    <logger name="com.alibaba.nacos.client.config" level="OFF"/>
+    <logger name="com.alibaba.nacos.client.naming" level="OFF"/>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>

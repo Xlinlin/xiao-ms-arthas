@@ -1,0 +1,68 @@
+# 监控监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  ## 关闭rabbitmq 健康检查
+  health:
+    redis:
+      enabled: false
+    rabbit:
+      enabled: false
+    elasticsearch:
+      enabled: false
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+arthas:
+  server:
+    host: 0.0.0.0
+    port: 7901
+  enable-detatil-pages: true
+    # redis模式缓存
+    #embedded-redis:
+    #enabled: true
+  #settings: maxmemory 128M
+
+spring:
+  boot:
+    # /META-INF/spring-boot-admin-server-ui/
+    admin:
+      ui:
+        # 自定义网页header，默认值assets/img/icon-spring-boot-admin.svg，自定义地址
+        #brand: <img src="custom/custom-icon.png">
+        # 自定义logo图标，默认路径/META-INF/spring-boot-admin-server-ui/assets/img/
+        #login-icon: assets/img/custom-login-icon.svg
+        # 外链或扩展页面
+        external-views:
+          - label: "Arthas Console"
+            url: ./extensions/arthas/arthas.html
+            order: 1900
+      #security:
+      #user:
+      #name: "admin"
+      #password: "admin123"
+  # caffeine缓存配置
+  cache:
+    type: caffeine
+    cache-names: inMemoryClusterCache
+    caffeine:
+      spec: maximumSize=3000,expireAfterAccess=3600s
+        #mail:
+        #host: smtp.163.com
+        #username: xiaolinlin
+        #password:
+        #boot:
+        #admin:
+        #notify:
+        #mail:
+      #to: 84226733@qq.com
+  security:
+    user:
+      name: admin
+      password: admin

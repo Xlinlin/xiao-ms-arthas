@@ -1,0 +1,28 @@
+server:
+  port: 7790
+
+spring:
+  main:
+    ## 解决 xxx.FeignClientSpecification异常
+    allow-bean-definition-overriding: true
+  application:
+    name: xiao-ms-admin-server
+  profiles:
+    active: ${SPRING_PROFILES:dev}
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+        refreshable-dataids: common.yml
+        shared-dataids: common.yml
+        namespace: ${NACOS_NAMESPACE:43f2c792-77bc-421a-94c5-b847ea10b2df}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+      server-addr: ${NACOS_SERVER_ADDR:http://192.168.5.8:8848}
+      discovery:
+        namespace: ${NACOS_NAMESPACE:43f2c792-77bc-421a-94c5-b847ea10b2df}
+      #inetutils:
+      #preferred-networks: ${PREFERRED_NETWORKS:192.168.0}
+
+logging:
+  config: classpath:logback-xiao.xml

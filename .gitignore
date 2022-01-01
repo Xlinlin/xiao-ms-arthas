@@ -1,0 +1,36 @@
+# Created by .ignore support plugin (hsz.mobi)
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+#/**/application-*.yml
+/**/bootstrap-*.yml
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+*.log
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+## swagger ##
+docs/*.html
+docs/*.adoc
